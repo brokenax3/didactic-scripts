@@ -1,4 +1,5 @@
 #!/bin/bash
+# Bash Script to move newly downloaded pdf into a temp directory and open it in zathura.
 
 echo "Starting pdfsort ... "
 
@@ -16,27 +17,31 @@ fi
 path=$HOME/Downloads
 tmp=/tmp/pdfDirectory
 
+# Move downloaded pdf and open it in zathura then send a notification.
+openzathura(){
+
+    mv "$path/$file" "$tmp/$file"
+    # As long as this is zathura and not Chrome. It won't keep looping in Chrome.
+    zathura "$tmp/$file" &> /dev/null &
+    notify-send -t 5000 "$file opened in Zathura"
+    prevfile=$file
+}
+
 inotifywait -m --format "%f" -e moved_to "$path" | while read file;do
 
-    # Prevents looping Chrome as it keeps downloading the same file and opening it
-    #   without opening it.
+    # Remove the same file that exists in the tmp directory before processing the new one.
     if [[ $prevfile != $file ]];then
 
         if [[ $file == *.pdf ]];then
             
             if [[ ! -d "$tmp" ]];then mkdir "$tmp";fi
 
-            mv "$path/$file" "$tmp/$file"
-            nohup zathura "$tmp/$file" &> /dev/null &
-            notify-send -t 5000 "$file opened in Zathura"
-            prevfile=$file
+            openzathura
         fi
     else
 
         # Remove the Old File and Open the Newly downloaded file
         rm "$tmp/$file"
-        mv "$path/$file" "$tmp/$file"
-        nohup zathura "$tmp/$file" &> /dev/null &
-        notify-send -t 5000 "$file opened in Zathura"
+        openzathura
     fi
 done

@@ -1,0 +1,11 @@
+#! /bin/bash
+# Simple wrapper to download things when I need to rate limit the download.
+
+if [[ $1 == '^[0-9]+k' ]]; then
+    echo -e "\nDownloading: $2\nRate: $1"
+    wget --limit-rate=$1 -P "/home/mark/Downloads" "$2"
+
+else
+    echo -e "\nDownloading: $1\nRate: 1024kbit/s (Default)"
+    wget --limit-rate=1024k -P "/home/mark/Downloads" "$1" 
+fi

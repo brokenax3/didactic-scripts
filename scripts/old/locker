@@ -1,14 +1,14 @@
 #!/bin/sh
 
 # Define some colours.
-aqua="#8be9fd"
-black="#161315"
-blue="#6272a4"
-green="#50fa7b"
-purple="#bd93f9"
-red="#ff5555"
-white="#f8f8f2"
-yellow="#f1fa8c"
+aqua="#92b7c0"
+black="#0f1116"
+blue="#89a0c3"
+green="#b6bd88"
+purple="#9e94c3"
+red="#d47d7b"
+white="#c6c8d0"
+yellow="#d9a67e"
 
 lock() {
     i3lock \

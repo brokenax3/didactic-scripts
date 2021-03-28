@@ -1,0 +1,90 @@
+#!/bin/bash
+#######################################################################
+#                  Minimal Pomodoro Timer @($date)                    #
+#######################################################################
+#                                                                     #
+# Pomodoro Timing - 25 minute small blocks repeated 4 times and a     #
+#   5 minute break in between. A 15 minute long break afterwards      #
+#   completes a big Pomodoro block.                                   #
+#                                                                     #
+#######################################################################
+
+date=$(date +"%H:%M")
+msg="\
+####################################################################### \n\
+#                  Minimal Pomodoro Timer @($date)                    # \n\
+####################################################################### "
+
+# Pomodoro Block (25 Minutes)
+pomo(){
+    notify-send "Time to Work" "Focus" -u normal
+    sleep 1500
+}
+
+# Short Break (5 Minutes)
+shortbreak(){
+    notify-send "Short Break" -u critical
+    sleep 300
+}
+
+# Long Break (15 Minutes)
+longbreak(){
+    notify-send "Long Break" "Take a Rest" -u critical
+    sleep 900
+}
+
+# Main Function Block
+case "$1" in
+    's')
+        # Starting the timer
+        # Initialise some variables
+        bigblock=1
+        smallblock=1
+        
+        # Print the start message
+        echo -e "$msg"
+
+        # Repeat timer indefinitely unless terminated with SIGINT
+        while true; do
+            count=1
+
+            echo "Big block $bigblock started."
+            
+            # Repeat the cycle for 4 iterations
+            while [ $count -lt 5 ]; do
+
+                # Contain ending message in one variable
+                endmsg="\n##############################\n#\tPomodoro Ended       #\n##############################\nCompleted:\n\tBig Blocks: $((bigblock-1))\n\tSmall Blocks: $((smallblock-1))\n##############################"
+
+                # Not sure if this should be in the right spot
+                trap "echo -e '$endmsg';exit 0" SIGINT
+
+                echo "Small block $smallblock started."
+                pomo
+                
+                # Take a small break between cycles
+                if [ $count -lt 4 ];then
+                    shortbreak
+                fi
+
+                echo "Small block $smallblock finished."
+                count=$((count+1))
+            done
+
+            # Take a long break after 4 small blocks
+            longbreak
+            echo "Big block $bigblock finished."
+
+            bigblock=$((bigblock+1))
+            smallblock=$((smallblock+count))
+        done
+        ;;
+    *)
+        # Print help
+        echo "Usage $0 { s }"
+        echo
+        exit 1
+        ;;
+esac
+
+exit 0

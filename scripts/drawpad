@@ -1,0 +1,10 @@
+#!/bin/bash
+
+xsetwacom set "HID 256c:006d Pad pad" button 1 key Ctrl Z
+xsetwacom set "HID 256c:006d Pad pad" button 2 key Ctrl Shift Z
+xsetwacom set "HID 256c:006d Pad pad" button 3 key Delete
+xsetwacom set "HID 256c:006d Pad pad" button 8 key =
+xsetwacom set "HID 256c:006d Pad pad" button 9 key Ctrl -
+xsetwacom set "HID 256c:006d Pad pad" button 10 key Ctrl Shift +
+
+xsetwacom set "HID 256c:006d stylus" MapToOutput HEAD-0
