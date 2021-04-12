@@ -1,0 +1,53 @@
+#!/bin/bash
+#######################################################################
+#                             Rofi-finder                             #
+#######################################################################
+#
+# Usage rofi -show find -modi find:/usr/local/bin/rofi-finder
+
+# Help message prompt
+prompt () {
+    echo "!!-- Type your search query to find files"
+    echo "!!-- To search again type !<search_query>"
+    echo "!!-- To search parent directories type ?<search_query>"
+    echo "!!-- You can print this help by typing !!"
+}
+
+# If the input line is not empty
+if [ ! -z "$@" ];then
+
+    QUERY=$@    # Put input into a variable
+    if [[ "$@" == /* ]];then    # If the input is anything that preceeds a "/"
+
+        if [[ "$@" == *\?\? ]];then     # If the input has ?? at the end of the line
+
+            coproc ( exo-open "${QUERY%\/* \?\?}" > /dev/null 2>&1 )    # Opens the directory with the default file manager
+            exec 1>&-
+            exit
+        else
+            coproc ( exo-open "$@"  > /dev/null 2>&1 )  # Opens the file with the default application
+            exec 1>&-
+            exit
+        fi
+
+    elif [[ "$@" == \!\!* ]];then   # Sends the prompt when input is '!!'
+
+        prompt
+    elif [[ "$@" == \?* ]];then     # Handler for directory searching. Appends ?? to the end of each line
+
+        echo "!!-- Type another search query"
+        while read -r line; do
+            echo "$line" \?\?
+        done <<< $(rg --files --follow -g '!Documents/*' ~ | rg -i "${QUERY#\?}")
+    else
+
+        # Main searching method. Searches the file names but not within it. Follows symlinks. Ommits the /Documents folder. 
+        #   Starts the search from the ~ directory and pipes back into rg to find the input 
+        echo "!!-- Type another search query"
+        rg --files --follow -g '!Documents/*' ~ | rg -i "${QUERY#!}"
+    fi
+else
+    
+    # Prompt the help message as a default
+    prompt
+fi

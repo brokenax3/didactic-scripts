@@ -1,0 +1,9 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhistcnt =7
+let g:netrw_dirhist_7='/home/mark/git/effective-train/project/robot-mark'
+let g:netrw_dirhist_6='/home/mark/.config/awesome/themes/iceberg'
+let g:netrw_dirhist_5='/home/mark/.config/awesome/themes/iceberg/taglist'
+let g:netrw_dirhist_4='/home/mark/.config/alacritty'
+let g:netrw_dirhist_3='/etc/xdg/awesome'
+let g:netrw_dirhist_2='/home/mark/.config/awesome'
+let g:netrw_dirhist_1='/home/mark/.config/zathura'

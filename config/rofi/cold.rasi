@@ -64,6 +64,7 @@ window {
     background-color: @background;
     border:           2;
     padding:          2;
+    location:         center;
 }
 
 mainbox {
@@ -88,6 +89,7 @@ listview {
     border-color: @separatorcolor;
     spacing:      2px;
     scrollbar:    @scrollbar;
+    dynamic:      true;
 }
 
 element {

@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
+# Autostart Applications
 function run {
   if ! pgrep -f $1 ;
   then
@@ -7,9 +8,9 @@ function run {
   fi
 }
 
-run clipit
-run fcitx5
+run xrandr --output HDMI-0 --primary --auto --left-of eDP-1-1
+run setxkbmap -option caps:escape
 run nm-applet
-run /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
-exec xrandr --output HDMI-0 --primary --auto --right-of eDP-1-1
-exec brightnessctl -d intel_backlight s 20%
+run blueman-applet
+run pdfsort
+run lxsession

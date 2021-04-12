@@ -29,6 +29,7 @@ call plug#begin(stdpath('data') . '/plugged')
 " General Vim Plugins
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-commentary'
 Plug 'farmergreg/vim-lastplace'
 Plug 'junegunn/vim-easy-align'
 Plug 'Konfekt/FastFold'
@@ -44,6 +45,9 @@ Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() } }
 Plug 'vim-pandoc/vim-pandoc'
 Plug 'vim-pandoc/vim-pandoc-syntax'
 
+" Vim LaTeX
+Plug 'lervag/vimtex'
+
 " Vim Snippets Plugins
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
@@ -52,6 +56,8 @@ Plug 'honza/vim-snippets'
 Plug 'itchyny/lightline.vim'
 Plug 'arzg/vim-substrata'
 Plug 'cocopon/iceberg.vim'
+Plug 'jsit/toast.vim'
+Plug 'lifepillar/vim-solarized8'
 
 " FZF Plugins
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
@@ -118,7 +124,7 @@ set updatetime=300                      " Faster completion
 set notimeout ttimeout ttimeoutlen=200  " Quickly time out on keycodes, but never time out on mappings
 
 " Copy paste between vim and everything else
-set clipboard=unnamedplus               
+set clipboard+=unnamedplus               
 
 " VIM Marker Folding
 set foldmethod=marker
@@ -168,6 +174,9 @@ nnoremap <C-L> :nohl<CR><C-L>
 
 " Buffer fzf
 nnoremap <silent> <leader>e :Buffers<CR>
+" Search for files including hidden files with ripgrep
+command! FZFall call fzf#run({'source': 'rg --files --hidden --vimgrep', 'dir': '~', 'sink': 'e', 'window': { 'width': 0.9, 'height': 0.6 }})
+nnoremap <silent> <leader>q :FZFall<CR>
 
 " Pandoc Convert to pdf
 nnoremap <silent> <leader>pp :Pandoc! pdf --toc --toc-depth=4 -V geometry:margin=1in -f markdown-raw_tex<CR>
@@ -185,6 +194,7 @@ inoremap <C-k> <c-g>u<Esc>b~$a<c-g>u
 " Notes Index Shortcut
 command! Nindex :e ~/git/effective-train/index.md
 nnoremap <silent> <leader>ne :Nindex<CR>
+nnoremap ; :
 
 " Quickfix List
 "
@@ -199,18 +209,46 @@ nnoremap <leader>v :Vlist<CR>
 nnoremap <leader>nt :Ngrep TODO<CR> :Vlist<CR>
 nnoremap <leader>c :cclose<CR>
 
+" Stop using Arrow Keys
+"
+noremap <Up> <Nop>
+noremap <Down> <Nop>
+noremap <Left> <Nop>
+noremap <Right> <Nop>
+
 " Theme Settings {{{1
 "----------------------------------------------------------------------------------
 "
+set guifont=CozetteVector:h12
+
 if has('termguicolors')
   set termguicolors
 endif
 
 colorscheme iceberg
-
+" let g:solarized_extra_hi_groups = 1
 let g:lightline = {
       \ 'colorscheme': 'iceberg',
       \ }
+
+"----------------------------------------------------------------------------------
+" FZF Settings {{{1
+"----------------------------------------------------------------------------------
+"
+let g:fzf_colors =
+\ { 'fg':      ['fg', 'Normal'],
+  \ 'bg':      ['bg', 'Normal'],
+  \ 'hl':      ['fg', 'Comment'],
+  \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+  \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
+  \ 'hl+':     ['fg', 'Statement'],
+  \ 'info':    ['fg', 'PreProc'],
+  \ 'border':  ['fg', 'Ignore'],
+  \ 'prompt':  ['fg', 'Conditional'],
+  \ 'pointer': ['fg', 'Exception'],
+  \ 'marker':  ['fg', 'Keyword'],
+  \ 'spinner': ['fg', 'Label'],
+  \ 'header':  ['fg', 'Comment'] }
 
 "----------------------------------------------------------------------------------
 " Vim-Pandoc-Markdown {{{1
@@ -229,6 +267,16 @@ let g:pandoc#folding#fold_fenced_codeblocks = 1
 " let g:pandoc#spell#enabled = 0
 " Let Markdown Preview Work with Pandoc Files
 let g:mkdp_command_for_global = 1
+"----------------------------------------------------------------------------------
+" Vim-Tex {{{1
+"----------------------------------------------------------------------------------
+let g:vimtex_view_method = 'zathura'
+let g:vimtex_fold_enabled = 1
+
+"----------------------------------------------------------------------------------
+" FastFold {{{1
+let g:fastfold_savehook = 0
+
 "----------------------------------------------------------------------------------
 " Markdown-Preview {{{1
 "----------------------------------------------------------------------------------
@@ -263,10 +311,12 @@ let g:ycm_key_invoke_completion = '<C-Space>'
 let g:ycm_max_num_candidates = 20
 let g:ycm_complete_in_comments = 1
 
+" Completion for Pandoc and LaTeX
 if !exists('g:ycm_semantic_triggers')
     let g:ycm_semantic_triggers = {}
 endif
 let g:ycm_semantic_triggers.pandoc = ['@']
+au VimEnter * let g:ycm_semantic_triggers.tex=g:vimtex#re#youcompleteme
 
 let g:ycm_filetype_blacklist = {}
 

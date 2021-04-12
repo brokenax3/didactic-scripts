@@ -1,8 +1,8 @@
 [global]
     frame_width = 2
-    frame_color = "#ff79c6"
+    frame_color = "#91acd1"
     
-    font = Scientifica 13
+    font = Scientifica 15
     
     # Allow a small subset of html markup:
     #   <b>bold</b>
@@ -193,6 +193,7 @@
 [urgency_critical]
     background = "#161315"
     foreground = "#f8f8f2"
+    frame_color = "#e98989"
     timeout = 0
 
 

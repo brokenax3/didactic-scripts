@@ -3,8 +3,7 @@ set $mod Mod4
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
-font pango:Terminus 10
-#font pango:Input Sans Compressed Regular 13
+font pango:Scientifica 12
 
 # Configure border style <normal|1pixel|pixel xx|none|pixel>
 default_border pixel 2
@@ -20,26 +19,25 @@ exec_always --no-startup-id xss-lock locker
 ##############################
 # Applications and Autostart #
 ##############################
-exec --no-startup-id xrandr --output HDMI-0 --primary --auto --right-of eDP-1-1
+exec --no-startup-id xrandr --output HDMI-0 --primary --auto --left-of eDP-1-1
 exec_always --no-startup-id autotiling
 exec_always --no-startup-id $HOME/.config/polybar/launch.sh
-exec --no-startup-id $HOME/.config/paperview/ppv_launch.sh
 # Change CapsLock to Escape
 exec --no-startup-id setxkbmap -option caps:escape
-# exec --no-startup-id picom -b
+exec --no-startup-id picom -b
 # exec_always --no-startup-id ff-theme-util
 # exec_always --no-startup-id fix_xcursor
 # exec --no-startup-id xautolock -time 20 -locker locker
 exec --no-startup-id nm-applet
 exec --no-startup-id lxsession
 exec --no-startup-id fcitx5
-exec --no-startup-id brightnessctl -d intel_backlight s 20%
+exec --no-startup-id brightnessctl -d intel_backlight s 15%
 # exec --no-startup-id pamixer --set-volume 25
 exec --no-startup-id blueman-applet
 exec --no-startup-id pdfsort
 exec --no-startup-id pa-applet
 # exec --no-startup-id redshift-gtk
- exec --no-startup-id nitrogen --restore &
+exec --no-startup-id nitrogen --restore &
 
 # Brightness and Audio Hotkeys
 bindsym XF86AudioRaiseVolume exec --no-startup-id pamixer -i 5 && notify-send -t 300 "$(pamixer --get-volume-human)"
@@ -88,6 +86,8 @@ bindsym $mod+d exec "rofi -show run"
 bindsym $mod+x exec "rofi -show drun"
 bindsym $mod+a exec "rofi -show window"
 
+# Polybar
+bindsym $mod+m exec "polybar-msg cmd toggle"
 #################
 # Movement Keys #
 #################
@@ -222,7 +222,6 @@ bindsym $mod+r mode "resize"
 # Open specific applications in floating mode
 for_window [title="alsamixer"] floating enable border pixel 1
 for_window [title="File Transfer*"] floating enable
-for_window [class="Lightdm-gtk-greeter-settings"] floating enable
 for_window [class="Lxappearance"] floating enable sticky enable border none
 for_window [class="Pamac-manager"] floating enable
 for_window [class="Pavucontrol"] floating enable, resize set 700 280
@@ -232,7 +231,7 @@ for_window [class="Simple-scan"] floating enable border normal
 for_window [class="(?i)System-config-printer.py"] floating enable border normal
 for_window [title="SimpleScreenRecorder"] floating enable border normal
 for_window [class="Zathura"] focus parent, layout stacking
-for_window [class="Add/Remove Software"] floating enable, resize set 435 353
+for_window [class="Add/Remove Software"] floating enable, resize set 500 315
 for_window [class="Hamster"] floating enable border normal
 
 # Assign applications to specific workspaces
