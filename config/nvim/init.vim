@@ -56,8 +56,8 @@ Plug 'honza/vim-snippets'
 Plug 'itchyny/lightline.vim'
 Plug 'arzg/vim-substrata'
 Plug 'cocopon/iceberg.vim'
-Plug 'jsit/toast.vim'
-Plug 'lifepillar/vim-solarized8'
+"Plug 'jsit/toast.vim'
+"Plug 'lifepillar/vim-solarized8'
 
 " FZF Plugins
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
@@ -65,6 +65,9 @@ Plug 'junegunn/fzf.vim'
 
 " Save Files as Sudo
 Plug 'lambdalisue/suda.vim'
+
+" Vim Minimap
+"Plug 'wfxr/minimap.vim'
 
 " Initialize plugin system
 call plug#end()
@@ -75,6 +78,7 @@ call plug#end()
 "
 " Leader Key
 let g:mapleader = "\<Space>"
+let g:maplocalleader = ","
 
 " Several QOS Settings
 syntax enable                           " Enables syntax highlighing
@@ -219,13 +223,13 @@ noremap <Right> <Nop>
 " Theme Settings {{{1
 "----------------------------------------------------------------------------------
 "
-set guifont=CozetteVector:h12
+set guifont=Iosevka\ SS02:h12
 
 if has('termguicolors')
   set termguicolors
 endif
 
-colorscheme iceberg
+colorscheme substrata
 " let g:solarized_extra_hi_groups = 1
 let g:lightline = {
       \ 'colorscheme': 'iceberg',
@@ -338,6 +342,12 @@ let g:UltiSnipsJumpBackwardTrigger="<a-b>"
 let g:suda#prompt = 'Magic Words: '
 let g:suda_smart_edit = 1
 
+"----------------------------------------------------------------------------------
+" Minimap {{{1
+"----------------------------------------------------------------------------------
+"let g:minimap_width = 10
+"let g:minimap_auto_start = 1
+"let g:minimap_auto_start_win_enter = 1
 "----------------------------------------------------------------------------------
 " Folding {{{1
 "----------------------------------------------------------------------------------

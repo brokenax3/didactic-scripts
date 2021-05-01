@@ -1,0 +1,5 @@
+#!/bin/bash
+
+# Multimonitor with panning for laptop screen
+xrandr --dpi 96 --output eDP-1-1 --auto --output HDMI-0 --auto --left-of eDP-1-1
+

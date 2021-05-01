@@ -30,7 +30,7 @@ alert = #d47d7b
 [bar/example]
 monitor = ${env:MONITOR:}
 width = 97%
-height = 20
+height = 18
 offset-x = 1.5%
 offset-y = 0.2%
 radius = 0
@@ -51,8 +51,8 @@ padding-right = 2
 module-margin-left = 1
 module-margin-right = 1
 
-font-0 = "Scientifica:size=11;1"
-font-1 = "Scientifica:size=13;1"
+font-0 = "Scientifica:size=10;1"
+font-1 = "Scientifica:size=12;1"
 font-2 = "Font Awesome 5 Free Solid:size=8;1"
 font-3 = "Font Awesome 5 Free Regular:size=10;1"
 font-4 = "Font Awesome 5 Brands Regular:size=10;1"
@@ -221,7 +221,7 @@ date-alt = " %Y-%m-%d"
 time = %H:%M
 time-alt = %H:%M:%S
 
-format-prefix = 
+;format-prefix = 
 format-prefix-foreground = ${colors.foreground-alt}
 format-underline = #d47d7b
 

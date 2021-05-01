@@ -8,7 +8,7 @@ function run {
   fi
 }
 
-run xrandr --output HDMI-0 --primary --auto --left-of eDP-1-1
+run xrandr --output HDMI-0 --primary --auto --right-of eDP-1-1
 run setxkbmap -option caps:escape
 run nm-applet
 run blueman-applet
