@@ -1,10 +1,59 @@
 # Setting up the host 
+I am running Arch Linux and aim to run Windows 10 as a guest VM. My system is a Clevo N850EP6 with a i7-8750H and a GTX1060.
+
+The setup for an optimus laptop is the same for any other pci passthrough but with some additions to it. First, the Subsystem ID for the device needs to be masquerade. Next, a battery needs to be emulated for `Code 43` to disappear. 
+
+Get all the pci devices and you can find the Subsystem ID. Take note of `1558` and `8500`. The first is the SVID and the latter is the SSID.
+
+```bash
+lspci -nnk
+
+01:00.0 VGA compatible controller [0300]: NVIDIA Corporation GP106M [GeForce GTX 1060 Mobile] [10de:1c20] (rev a1)
+	Subsystem: CLEVO/KAPOK Computer Device [1558:8500]
+	Kernel driver in use: nvidia
+	Kernel modules: nouveau, nvidia_drm, nvidia
+```
+
+This needs to be added at the end of the xml for the VM. The domain needs to be added to the top of the xml file.
+
+```bash
+<domain xmlns:qemu="http://libvirt.org/schemas/domain/qemu/1.0" type="kvm">
+  ...
+  <qemu:commandline>
+    <qemu:arg value="device.hostdev0.x-pci-sub-vendor-id=0x1558"/>
+    <qemu:arg value="-set"/>
+    <qemu:arg value="device.hostdev0.x-pci-sub-device-id=0x8500"/>
+  </qemu:commandline>
+</domain>
+```
+
+Next, a battery needs to be emulated. This can found in the [Arch Linux Wiki](https://wiki.archlinux.org/title/PCI_passthrough_via_OVMF) in the section "Error 43: Driver failed to load" with mobile (Optimus/max-q) nvidia GPUs.
+
+Basically, take the base64 string below and paste it into [base64.guru](https://base64.guru/converter/decode/file) and save it as `SSDT1.dat`.
+
+```
+U1NEVKEAAAAB9EJPQ0hTAEJYUENTU0RUAQAAAElOVEwYEBkgoA8AFVwuX1NCX1BDSTAGABBMBi5f
+U0JfUENJMFuCTwVCQVQwCF9ISUQMQdAMCghfVUlEABQJX1NUQQCkCh8UK19CSUYApBIjDQELcBcL
+cBcBC9A5C1gCCywBCjwKPA0ADQANTElPTgANABQSX0JTVACkEgoEAAALcBcL0Dk=
+```
+
+Next, add the following lines into the xml file.
+
+```bash
+<domain xmlns:qemu="http://libvirt.org/schemas/domain/qemu/1.0" type="kvm">
+  ...
+  <qemu:commandline>
+    <qemu:arg value="-acpitable"/>
+    <qemu:arg value="file=/path/to/your/SSDT1.dat"/>
+  </qemu:commandline>
+</domain>
+```
 
 ## Enabling Intel IOMMU
 > intel_iommu=on
 
 ## Showing the IOMMU Groups
-```
+```bash
 #!/bin/bash
 shopt -s nullglob
 for g in `find /sys/kernel/iommu_groups/* -maxdepth 0 -type d | sort -V`; do
@@ -16,7 +65,7 @@ done;
 ```
 
 ### Output IOMMU Groups
-```
+```bash
 IOMMU Group 0:
     00:00.0 Host bridge [0600]: Intel Corporation 8th Gen Core Processor Host Bridge/DRAM Registers [8086:3ec4] (rev 07)
 IOMMU Group 1:
@@ -53,7 +102,7 @@ IOMMU Group 12:
 ```
 
 ### Output lspci
-```
+```bash
 00:00.0 Host bridge [0600]: Intel Corporation 8th Gen Core Processor Host Bridge/DRAM Registers [8086:3ec4] (rev 07)
 	DeviceName: Onboard - Other
 	Subsystem: CLEVO/KAPOK Computer Device [1558:8500]
@@ -160,3 +209,16 @@ qemu, libvirt, edk2-ovmf, and virt-manager
 # Network Connection
 iptables-nft and dnsmasq 
 ```
+
+# Troubleshooting
+
+## Obtaining GPU VBIOS
+1. Boot into Windows machine which is able to detect the Graphics Card.
+2. Install GPUZ and export VBIOS.
+
+## VirtIO Disk Setup
+Start up VM with boot drive attached via SATA.
+
+1. Create a small VirtIO disk and attach it to the Virtual Machine.
+2. Install VirtIO drivers from the ISO from [Fedora](https://github.com/virtio-win/virtio-win-pkg-scripts/blob/master/README.md).
+3. Shutdown, reattach boot drive as VirtIO Disk and remove the small VirtIO Disk.
