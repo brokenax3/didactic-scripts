@@ -16,11 +16,22 @@ volume_indicator = {
 }
 
 function update_volume(widget)
-    local fd = io.popen("pamixer --get-volume-human")
-    local status = fd:read("*all")
-    fd:close()
+    local sink = io.popen("pamixer --list-sinks | grep 'bluez' | awk '{print $1}'")
 
-    widget.markup = "Volume: ".. status
+    if sink:read("*all") == "" then
+        fd = io.popen("pamixer --get-volume-human")
+    else
+        item = sink:read("*all")
+        -- print("pamixer --sink " .. item .. " --get-volume-human")
+        -- fd = io.popen("pamixer --sink " .. item .. " --get-volume-human")
+    end
+
+    -- local status = fd:read("*all")
+    sink:close()
+    -- fd:close()
+
+    -- widget.markup = "Volume: ".. status
+    widget.markup = "pamixer --sink " .. item .. " --get-volume-human"
 end
 
 update_volume(text)

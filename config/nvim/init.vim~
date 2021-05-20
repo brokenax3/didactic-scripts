@@ -17,6 +17,7 @@
 autocmd VimEnter * :silent exec "!kill -s SIGWINCH $PPID"
 set nocompatible
 autocmd BufEnter * silent! lcd %:p:h
+luafile /home/mark/.config/nvim/lua/init.lua
 
 "----------------------------------------------------------------------------------
 " VIM Plug {{{1

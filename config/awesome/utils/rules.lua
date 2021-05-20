@@ -46,14 +46,6 @@ awful.rules.rules = {
         properties = { 
             placement = awful.placement.centered + awful.placement.no_overlap + awful.placement.no_offscreen,
             floating = true,
-            above = true
-        }
-    },
-
-    -- Add titlebars to normal clients and dialogs
-    { rule_any = { type = { "floating", "dialog" } }, 
-        properties = { 
-            titlebars_enabled = true 
         }
     },
 
@@ -71,7 +63,18 @@ awful.rules.rules = {
 
     { rule = { class = "zoom", name = "Chat" },
         properties = { floating = true, width = 530, height = 315 }
-    }
+    },
+
+    { rule = { class = "MATLAB R2020a.*", name = "Figure.*" },
+        properties = { floating = true, ontop = true, width = 450, height = 450 }
+    },
+
+    -- Add titlebars to normal clients and dialogs
+    { rule_any = { type = { "floating", "dialog" } }, 
+        properties = { 
+            ontop = true
+        }
+    },
 
 }
 

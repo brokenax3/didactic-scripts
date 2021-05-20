@@ -53,11 +53,9 @@ Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 
 " Theme Plugins
-Plug 'itchyny/lightline.vim'
-Plug 'arzg/vim-substrata'
+Plug 'hoob3rt/lualine.nvim'
 Plug 'cocopon/iceberg.vim'
-"Plug 'jsit/toast.vim'
-"Plug 'lifepillar/vim-solarized8'
+Plug 'folke/tokyonight.nvim'
 
 " FZF Plugins
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
@@ -72,6 +70,7 @@ Plug 'lambdalisue/suda.vim'
 " Initialize plugin system
 call plug#end()
 
+luafile /home/mark/.config/nvim/lua/init.lua
 "----------------------------------------------------------------------------------
 " VIM Settings {{{1
 "----------------------------------------------------------------------------------
@@ -222,19 +221,8 @@ noremap <Right> <Nop>
 
 " Theme Settings {{{1
 "----------------------------------------------------------------------------------
-"
-set guifont=Iosevka\ SS02:h12
-
-if has('termguicolors')
-  set termguicolors
-endif
-
-colorscheme substrata
-" let g:solarized_extra_hi_groups = 1
-let g:lightline = {
-      \ 'colorscheme': 'iceberg',
-      \ }
-
+set guifont=Iosevka\ SS16:h12
+set termguicolors
 "----------------------------------------------------------------------------------
 " FZF Settings {{{1
 "----------------------------------------------------------------------------------

@@ -4,6 +4,7 @@
 local awful = require("awful")
 local naughty = require("naughty")
 local vicious = require("vicious")
+local bling = require("bling")
 
 -- Enable hotkeys help widget for VIM and other apps
 local hotkeys_popup = require("awful.hotkeys_popup")
@@ -33,7 +34,7 @@ local exitAwesome = awful.menu({
         { "Exit", function() awesome.quit() end },
         { "Lock", function() awful.spawn.with_shell("locker") end },
         { "Reboot", function() awful.spawn.with_shell("reboot") end },
-        { "Suspend", function() awful.spawn.with_shell("systemctl suspend") end },
+        { "Suspend", function() awful.spawn.with_shell("locker && systemctl suspend") end },
         { "Shutdown", function() awful.spawn.with_shell("shutdown now") end },
     }
 })
@@ -119,6 +120,12 @@ awful.keyboard.append_global_keybindings({
               {description = "select next", group = "layout"}),
     awful.key({ modkey, "Shift"   }, "space", function () awful.layout.inc(-1)                end,
               {description = "select previous", group = "layout"}),
+    awful.key({ modkey,           }, "q", function () bling.module.tabbed.put()              end,
+              {description = "pick client to add to tab", group = "layout"}),
+    awful.key({ modkey,           }, "e", function () bling.module.tabbed.pop()               end,
+              {description = "pop client from tab", group = "layout"}),
+    awful.key({ modkey,           }, "w", function () bling.module.tabbed.iter()              end,
+              {description = "iterate through clients in tab", group = "layout"}),
 })
 
 awful.keyboard.append_global_keybindings({
@@ -285,14 +292,12 @@ awful.keyboard.append_global_keybindings({
 
     -- Brightness Keys
     awful.key({ }, "XF86MonBrightnessDown", function () 
-        awful.spawn.easy_async("brightnessctl -d intel_backlight s 5%-")
-        update_brightness()
+        awful.spawn("xbacklight -dec 5")
         naughty.notification({ title = "Brightness Down", height = 20, timeout = 1 })
     end),
 
     awful.key({ }, "XF86MonBrightnessUp", function () 
-        awful.spawn.easy_async("brightnessctl -d intel_backlight s 5%+")
-        update_brightness()
+        awful.spawn("xbacklight -inc 5")
         naughty.notification({ title = "Brightness Up", height = 20, timeout = 1 })
     end),
     
@@ -313,7 +318,7 @@ awful.keyboard.append_global_keybindings({
               {description = "rofi -show drun", group = "rofi"}),
     awful.key({ modkey,           }, "a", function () awful.spawn("rofi -show window") end,
               {description = "rofi -show window", group = "rofi"}),
-    awful.key({ modkey,           }, "q", function () awful.spawn("rofi -show find -modi find:/usr/local/bin/rofi-finder -width 40 -lines 20") end,
+    awful.key({ modkey,           }, "t", function () awful.spawn("rofi -show find -modi find:/usr/local/bin/rofi-finder -width 40 -lines 20") end,
               {description = "rofi -show find", group = "rofi"}),
 })
 -- }}}
@@ -324,8 +329,8 @@ awful.keyboard.append_global_keybindings({
               {description = "Google Chrome", group = "applications"}),
     awful.key({ modkey,           }, "F3", function () awful.spawn("thunar") end,
               {description = "Thunar", group = "applications"}),
-    awful.key({ modkey,           }, "F4", function () awful.spawn("neovide") end,
-              {description = "Neovide", group = "applications"}),
+    awful.key({ modkey,           }, "F4", function () awful.spawn("nvim-qt") end,
+              {description = "Neovim", group = "applications"}),
     awful.key({ modkey,           }, "F5", function () awful.spawn("google-chrome-stable --incognito") end,
               {description = "Google Chrome (Incognito Mode)", group = "applications"}),
     awful.key({ modkey,           }, "F6", function () awful.spawn("spotify") end,

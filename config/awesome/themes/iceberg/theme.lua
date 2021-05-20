@@ -12,7 +12,8 @@ theme.wallpaper = themes_path .. "/iceberg/background.png"
 -- }}}
 
 -- {{{ Styles
-theme.font      = "Terminus 12"
+theme.font      = "Iosevka SS16 11"
+-- }}}
 
 -- {{{ Colors
 theme.fg_normal  = "#d2d4de"
@@ -36,6 +37,27 @@ theme.border_marked = "#a093c7"
 theme.titlebar_bg_focus  = "#161821"
 theme.titlebar_bg_normal = "#161821"
 -- }}}
+
+-- {{{ Titlebars
+-- For tabbed only
+theme.tabbed_spawn_in_tab = true           -- whether a new client should spawn into the focused tabbing container
+
+-- For tabbar in general
+theme.tabbar_ontop  = true
+theme.tabbar_radius = 0                     -- border radius of the tabbar
+theme.tabbar_style = "default"              -- style of the tabbar ("default", "boxes" or "modern")
+theme.tabbar_font = "Iosevka SS16 11"       -- font of the tabbar
+theme.tabbar_size = 20                      -- size of the tabbar
+theme.tabbar_position = "top"               -- position of the tabbar
+theme.tabbar_bg_normal = "#000000"          -- background color of the focused client on the tabbar
+theme.tabbar_fg_normal = "#ffffff"          -- foreground color of the focused client on the tabbar
+theme.tabbar_bg_focus  = "#1A2026"          -- background color of unfocused clients on the tabbar
+theme.tabbar_fg_focus  = "#ff0000"          -- foreground color of unfocused clients on the tabbar
+
+-- the following variables are currently only for the "modern" tabbar style
+theme.tabbar_color_close = "#f9929b"        -- chnges the color of the close button
+theme.tabbar_color_min   = "#fbdf90"        -- chnges the color of the minimize button
+theme.tabbar_color_float = "#ccaced"        -- chnges the color of the float button
 
 -- There are other variable sets
 -- overriding the default one when
