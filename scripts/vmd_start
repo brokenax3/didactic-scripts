@@ -1,0 +1,4 @@
+#!/bin/bash
+
+# Start the required services for Virt-manager
+sudo systemctl start libvirtd virtlogd

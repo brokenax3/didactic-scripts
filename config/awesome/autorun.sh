@@ -11,7 +11,7 @@ function run {
 GPUMODE="$(optimus-manager --status | grep "Current GPU mode" | awk '{print $5}')"
 
 if [[ "$GPUMODE" == "nvidia" ]];then
-    xrandr --output DP-1-1 --primary --mode 1920x1080 --rate 74.97 --set "Broadcast RGB" "Full" --right-of eDP-1-1
+    xrandr --output DP-0 --primary --mode 1920x1080 --rate 74.97 --set "Broadcast RGB" "Full" --right-of eDP-1-1
 else
     xrandr --output DP1 --primary --mode 1920x1080 --rate 74.97 --set "Broadcast RGB" "Full" --right-of eDP1
 fi
@@ -23,3 +23,4 @@ run blueman-applet
 run picom -b
 run pdfsort
 run lxsession
+brightnessctl set 30%

@@ -32,13 +32,13 @@ Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-commentary'
 Plug 'farmergreg/vim-lastplace'
 Plug 'junegunn/vim-easy-align'
-Plug 'Konfekt/FastFold'
 Plug 'easymotion/vim-easymotion'
 Plug 'mhinz/vim-startify'
 
 " Completion and Syntax Highlighting
 Plug 'ycm-core/YouCompleteMe'
-Plug 'sheerun/vim-polyglot'
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}  
+" Plug 'sheerun/vim-polyglot'
 
 " Vim Markdown Plugins
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() } }
@@ -54,8 +54,10 @@ Plug 'honza/vim-snippets'
 
 " Theme Plugins
 Plug 'hoob3rt/lualine.nvim'
-Plug 'cocopon/iceberg.vim'
 Plug 'folke/tokyonight.nvim'
+
+" Tabline
+" Plug 'romgrk/barbar.nvim'
 
 " FZF Plugins
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
@@ -71,83 +73,9 @@ Plug 'lambdalisue/suda.vim'
 call plug#end()
 
 luafile /home/mark/.config/nvim/lua/init.lua
-"----------------------------------------------------------------------------------
-" VIM Settings {{{1
-"----------------------------------------------------------------------------------
-"
-" Leader Key
-let g:mapleader = "\<Space>"
-let g:maplocalleader = ","
-
-" Several QOS Settings
-syntax enable                           " Enables syntax highlighing
-set hidden                              " Required to keep multiple buffers open multiple buffers
-" set spell
-" set spellfile=~/.config/nvim/spell/en.utf-8.add\
-set spelllang=en_au
-" let g:spellfile_URL = 'https://ftp.nluug.nl/vim/runtime/spell'
-set wildmenu                            " Better command-line completion
-set showcmd                             " Show partial commands in the last line of the screen
-set encoding=utf-8                      " The encoding displayed
-set pumheight=10                        " Makes popup menu smaller
-set fileencoding=utf-8                  " The encoding written to file
-set ruler                               " Show the cursor position all the time
-set cmdheight=2                         " More space for displaying messages
-set iskeyword+=-                        " treat dash separated words as a word text object"
-set splitbelow                          " Horizontal splits will automatically be below
-set splitright                          " Vertical splits will automatically be to the right
-set title                               " Let GUI window title to be the file name
-
-" Middle Selection Copy for nvim-qt
-set mouse=a                             " Enable your mouse
-vmap <LeftRelease> "*ygv
-
-" Support 256 colors
-set t_Co=256
-
-" Always display the status line, even if only one window is displayed
-set laststatus=2
-
-" Indentation Settings
-set shiftwidth=4
-set softtabstop=4
-set expandtab
-set smarttab                            " Makes tabbing smarter will realize you have 2 vs 4
-set smartindent                         " Makes indenting smart
-set autoindent                          " Good auto indent
-
-set ignorecase
-set smartcase
-
-" Relative Line Numbers
-set number relativenumber
-
-" Completion and Timeout
-set updatetime=300                      " Faster completion
-set notimeout ttimeout ttimeoutlen=200  " Quickly time out on keycodes, but never time out on mappings
-
-" Copy paste between vim and everything else
-set clipboard+=unnamedplus               
-
-" VIM Marker Folding
-set foldmethod=marker
 
 "set autochdir                           " Your working directory will always be the same as your working directory
 au! BufWritePost $MYVIMRC source %      " auto source when writing to init.vm alternatively you can run :source $MYVIMRC
-
-" You can't stop me
-" cmap w!! w !sudo tee %
-
-" GUI Font
-" set guifont=Input\ Mono\ Compressed:h13
-" set guifont=scientifica:h13
-
-" Set Undo and Swap file
-set undodir=~/.local/share/nvim/undo//
-set backupdir=~/.local/share/nvim/backup//
-set directory=~/.local/share/nvim/swap//
-set undofile
-set backup
 
 " Make :grep use ripgrep
 if executable('rg')
@@ -181,10 +109,6 @@ nnoremap <silent> <leader>e :Buffers<CR>
 command! FZFall call fzf#run({'source': 'rg --files --hidden --vimgrep', 'dir': '~', 'sink': 'e', 'window': { 'width': 0.9, 'height': 0.6 }})
 nnoremap <silent> <leader>q :FZFall<CR>
 
-" Pandoc Convert to pdf
-nnoremap <silent> <leader>pp :Pandoc! pdf --toc --toc-depth=4 -V geometry:margin=1in -f markdown-raw_tex<CR>
-nnoremap <silent> <leader>pd :Pandoc! docx -V geometry:margin=1in -f markdown-raw_tex<CR>
-
 " Spelling Correction
 "
 " Correct previous spelling error
@@ -200,7 +124,6 @@ nnoremap <silent> <leader>ne :Nindex<CR>
 nnoremap ; :
 
 " Quickfix List
-"
 " Searching the notes directory with <args> and ripgrep
 command! -nargs=1 Ngrep grep "<args>" -g "*.md" ~/git/effective-train
 nnoremap <leader>nn :Ngrep 
@@ -213,7 +136,6 @@ nnoremap <leader>nt :Ngrep TODO<CR> :Vlist<CR>
 nnoremap <leader>c :cclose<CR>
 
 " Stop using Arrow Keys
-"
 noremap <Up> <Nop>
 noremap <Down> <Nop>
 noremap <Left> <Nop>
@@ -222,7 +144,6 @@ noremap <Right> <Nop>
 " Theme Settings {{{1
 "----------------------------------------------------------------------------------
 set guifont=Iosevka\ SS16:h12
-set termguicolors
 "----------------------------------------------------------------------------------
 " FZF Settings {{{1
 "----------------------------------------------------------------------------------
@@ -264,7 +185,16 @@ let g:mkdp_command_for_global = 1
 "----------------------------------------------------------------------------------
 let g:vimtex_view_method = 'zathura'
 let g:vimtex_fold_enabled = 1
-
+let g:vimtex_compiler_latexmk = {
+    \ 'options' : [
+    \   '-pdf',
+    \   '-pdflatex="xelatex --shell-escape %O %S"',
+    \   '-verbose',
+    \   '-file-line-error',
+    \   '-synctex=1',
+    \   '-interaction=nonstopmode',
+    \ ]
+    \}
 "----------------------------------------------------------------------------------
 " FastFold {{{1
 let g:fastfold_savehook = 0
@@ -290,7 +220,6 @@ let g:mkdp_preview_options = {
     \ 'flowchart_diagrams': {}
     \ }
 nnoremap <F8> :MarkdownPreview<CR>
-
 
 "----------------------------------------------------------------------------------
 " YouCompleteMe {{{1
@@ -336,28 +265,3 @@ let g:suda_smart_edit = 1
 "let g:minimap_width = 10
 "let g:minimap_auto_start = 1
 "let g:minimap_auto_start_win_enter = 1
-"----------------------------------------------------------------------------------
-" Folding {{{1
-"----------------------------------------------------------------------------------
-fu! CustomFoldText()
-    " get first non-blank line
-    let fs = v:foldstart
-    while getline(fs) =~ '^\s*$' | let fs = nextnonblank(fs + 1)
-    endwhile
-    if fs > v:foldend
-        let line = getline(v:foldstart)
-    else
-        let line = substitute(getline(fs), '\t', repeat(' ', &tabstop), 'g')
-    endif
-    let w = winwidth(0) - &foldcolumn - (&number ? 8 : 0)
-    let foldSize = 1 + v:foldend - v:foldstart
-    let foldSizeStr = " " . foldSize . " lines "
-    let foldLevelStr = repeat("+--", v:foldlevel)
-    let lineCount = line("$")
-    let foldPercentage = printf("[%.1f", (foldSize*1.0)/lineCount*100) . "%] "
-    let expansionString = repeat(".", w - strwidth(foldSizeStr.line.foldLevelStr.foldPercentage))
-    return line . expansionString . foldSizeStr . foldPercentage . foldLevelStr
-endf
-
-" set custom fold text to system
-set foldtext=CustomFoldText()

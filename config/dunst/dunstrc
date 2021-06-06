@@ -2,7 +2,7 @@
     frame_width = 2
     frame_color = "#91acd1"
     
-    font = Scientifica 15
+    font = Iosevka SS16 13
     
     # Allow a small subset of html markup:
     #   <b>bold</b>
