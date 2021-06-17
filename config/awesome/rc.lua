@@ -19,19 +19,20 @@ local naughty = require("naughty")
 local menubar = require("menubar")
 
 -- Themes
-beautiful.init(gears.filesystem.get_configuration_dir() .. "/themes/iceberg/theme.lua")
+beautiful.init(gears.filesystem.get_configuration_dir() .. "/themes/tokyo/theme.lua")
 
 -- Bling utility module
-local bling = require("bling")
+-- local bling = require("bling")
 
 -- Notification
-beautiful.notification_font = "Iosevka SS16 11"
+beautiful.notification_font = "Iosevka SS02 11"
+beautiful.tasklist_plain_task_name = true
 beautiful.notification_icon_size = 50
--- beautiful.notification_max_width = 200
--- beautiful.notification_max_height = 200
+beautiful.notification_max_width = 200
+beautiful.notification_max_height = 200
 beautiful.notification_border_width = 10
-beautiful.notification_border_color = "#a093c7"
-beautiful.notification_fg = "#d2d4de"
+beautiful.notification_border_color = "#bb9af7"
+beautiful.notification_fg = "#c0caf5"
 beautiful.useless_gap = 2
 
 -- Custom Widgets
@@ -57,7 +58,6 @@ require("utils.keys")
 require("utils.rules")
 
 -- {{{ Notifications
-
 ruled.notification.connect_signal('request::rules', function()
     -- All notifications will match this rule.
     ruled.notification.append_rule {

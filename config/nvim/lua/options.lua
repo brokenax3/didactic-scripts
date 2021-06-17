@@ -26,19 +26,19 @@ vim.o.title = true
 -- Maximum fold numbers
 vim.o.foldnestmax = 0
 -- Support 256 colors
-vim.o.t_Co = '256'
+vim.go.t_Co = '256'
 -- Always display the status line, even if only one window is displayed
 vim.o.laststatus = 2
 ------------------------------------------------------------------------
 --                             QOS Stuff                              --
 ------------------------------------------------------------------------
 -- Enables syntax highlighing
-vim.o.syntax = 'ON'                           
+-- vim.o.syntax = 'ON'                           
 -- Required to keep multiple buffers open multiple buffers
 vim.o.hidden = true                          
 vim.o.spell = false
-vim.o.spellfile = '/home/mark/.config/nvim/spell/en.utf-8.add'
-vim.o.spelllang = 'en_au'
+-- vim.o.spellfile = '/home/mark/.config/nvim/spell/en.utf-8.add'
+-- vim.o.spelllang = 'en_au'
 -- set custom fold text to system
 vim.o.foldmethod = 'expr'
 vim.o.foldexpr = 'nvim_treesitter#foldexpr()'
@@ -79,7 +79,7 @@ vim.o.updatetime = 300
 vim.o.timeout = false
 vim.o.ttimeoutlen = 200
 -- Copy paste between vim and everything else
-vim.o.clipboard = 'unnamedplus'
+-- vim.o.clipboard = 'unnamedplus'
 -- Set Undo and Swap file
 vim.o.undodir = '/home/mark/.local/share/nvim/undo//'
 vim.o.backupdir = '/home/mark/.local/share/nvim/backup//'

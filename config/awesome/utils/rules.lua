@@ -1,6 +1,7 @@
 local awful = require("awful")
 local ruled = require("ruled")
 local wibox = require("wibox")
+local gears = require("gears")
 
 -- Rules to apply to new clients (through the "manage" signal).
 awful.rules.rules = {
@@ -46,6 +47,7 @@ awful.rules.rules = {
         properties = { 
             placement = awful.placement.centered + awful.placement.no_overlap + awful.placement.no_offscreen,
             floating = true,
+            ontop = true,
         }
     },
 
@@ -72,7 +74,7 @@ awful.rules.rules = {
     -- Add titlebars to normal clients and dialogs
     { rule_any = { type = { "floating", "dialog" } }, 
         properties = { 
-            ontop = true
+            ontop = true,
         }
     },
 
@@ -116,4 +118,31 @@ client.connect_signal("request::titlebars", function(c)
         layout = wibox.layout.align.horizontal
     }
 end)
+
+-- {{{ Client Windows
+client.connect_signal("manage", function(c)
+    c.shape = function(cr,w,h)
+        gears.shape.rounded_rect(cr,w,h,10)
+    end
+
+end)
+
+client.connect_signal("property::fullscreen", function(c)
+    if c.fullscreen == true then
+        c.shape = function(cr,w,h)
+            gears.shape.rectangle(cr,w,h)
+        end
+    else
+        c.shape = function(cr,w,h)
+            gears.shape.rounded_rect(cr,w,h,10)
+        end
+    end
+end)
+-- client.connect_signal("property::floating", function(c)
+
+--     if c.floating == true then
+--         c.ontop = true
+--     end
+-- end)
+
 

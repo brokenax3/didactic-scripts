@@ -1,8 +1,8 @@
 ------------------------------------------------------------------------
 --                     Configuration for Neovim                       --
 ------------------------------------------------------------------------
--- Neovim Configuration
 require('options')
+
 -- Leader Key
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ','
@@ -13,14 +13,14 @@ vim.o.termguicolors = true
 vim.cmd([[colorscheme tokyonight]])
 
 require('lualine').setup{
-    options = { 
+    options = {
         theme = 'tokyonight',
         icons_enabled = false
     },
 }
 
 -- Treesitter
-require'nvim-treesitter.configs'.setup {
+require('nvim-treesitter.configs').setup {
     highlight = {
         enable = true
     },
@@ -28,4 +28,3 @@ require'nvim-treesitter.configs'.setup {
         enable = false
     }
 }
-
