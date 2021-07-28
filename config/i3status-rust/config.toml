@@ -1,0 +1,23 @@
+theme = "native"
+icons = "awesome5"
+
+[[block]]
+block = "net"
+format = "{ssid} {signal_strength} {ip}"
+format_alt = "{ssid} {signal_strength} {ip} {speed_down;K*b} {graph_down;K*b}"
+interval = 5
+
+[[block]]
+block = "sound"
+
+[[block]]
+block = "battery"
+interval = 10
+format = "{percentage} {time}"
+allow_missing = true
+missing_format	= "No Battery"
+
+[[block]]
+block = "time"
+interval = 60
+format = "%a %d/%m %R"

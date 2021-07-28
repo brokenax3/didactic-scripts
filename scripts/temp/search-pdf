@@ -1,0 +1,78 @@
+#!/bin/bash
+
+# Bash Script Wrapper for PDF-Grep
+
+# Request Directory
+reqdirectory(){
+
+    while :;do
+    # Option Selecions
+        case $select in
+
+        "-d") if [ -d "$directory" ]; then
+
+                echo "Found $directory."
+                file=$directory
+                break
+            else
+
+                echo "Directory not found."
+                exit
+            fi
+            ;;
+        "-f") if [ -f "$file" ]; then
+
+                echo "Found $file."
+                option=""
+                break
+            else
+
+                echo "File not found."
+                exit
+            fi
+            ;;
+        *) echo "--------------------- Help --------------------"
+            echo -e "searchpdf [option]\n"
+            echo -e "Options :\n\t -f <FILENAME> Search file\n\t -d <DIRECTORY> Search directory\n"
+            exit
+            ;;
+        esac
+    done
+}
+
+# Search Function
+search(){
+
+    echo -n "Search term : "
+    read searchTerm
+    
+    # Uses pdfgrep to search defined location
+    if [ "$select" = "-d" ]; then
+
+        pdfgrep --cache -i -n -r "$searchTerm" "$file"
+    elif [ "$select" = "-f" ]; then
+
+        pdfgrep --cache -i -n "$searchTerm" "$file"
+    fi
+}
+
+# Main Function
+main(){
+	
+    echo "------------------ search-pdf -----------------"
+    
+    search
+
+    echo "--------------------- Done --------------------"
+}
+
+# Actual Execution
+select=$1
+file=$2
+directory=$file
+reqdirectory
+
+while :;do
+    
+    main
+done

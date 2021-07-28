@@ -16,7 +16,7 @@ vim.o.ruler = true
 -- More space for displaying messages
 vim.o.cmdheight = 2
 -- treat dash separated words as a word text object"
-vim.o.iskeyword = vim.o.iskeyword .. ',-'
+vim.o.iskeyword = vim.o.iskeyword .. ',-,_'
 -- Horizontal splits will automatically be below
 vim.o.splitbelow = true
 -- Vertical splits will automatically be to the right
@@ -42,6 +42,8 @@ vim.o.spell = false
 -- set custom fold text to system
 vim.o.foldmethod = 'expr'
 vim.o.foldexpr = 'nvim_treesitter#foldexpr()'
+-- Completion
+vim.o.completeopt = "menuone,noselect"
 ------------------------------------------------------------------------
 --                               Mouse                                --
 ------------------------------------------------------------------------

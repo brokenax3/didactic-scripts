@@ -2,19 +2,21 @@
 --                     Configuration for Neovim                       --
 ------------------------------------------------------------------------
 require('options')
+require('plugins.completion')
+require('plugins.lsp')
 
 -- Leader Key
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ','
 
 -- Neovim Theme
-vim.g.tokyonight_style = 'night'
-vim.o.termguicolors = true
-vim.cmd([[colorscheme tokyonight]])
+vim.cmd[[set background=dark]]
+vim.cmd[[colorscheme gruvbox8]]
+vim.cmd[[let g:gruvbox_filetype_hi_groups = 1]]
 
 require('lualine').setup{
     options = {
-        theme = 'tokyonight',
+        theme = 'gruvbox',
         icons_enabled = false
     },
 }
@@ -28,3 +30,4 @@ require('nvim-treesitter.configs').setup {
         enable = false
     }
 }
+

@@ -1,13 +1,12 @@
 autocmd VimEnter * :silent exec "!kill -s SIGWINCH $PPID"
 set nocompatible
 autocmd BufEnter * silent! lcd %:p:h
-autocmd BufWritePost plugins.lua PackerCompile
 
-lua require('plugins')
 lua require('init')
+lua require('plugins.plugins')
 
 set guifont=Liberation\ Mono:h11
-
+set clipboard=unnamedplus         
 " Make :grep use ripgrep
 if executable('rg')
     set grepprg=rg\ --pretty\ --vimgrep
@@ -31,18 +30,21 @@ nnoremap <C-L> :nohl<CR><C-L>
 nnoremap <silent> <leader>e :Buffers<CR>
 
 " Search for files including hidden files with ripgrep
-command! FZFcfg call fzf#run({'source': 'rg --files --hidden --type rc --type conf --type prog', 'dir': '~', 'sink': 'e', 'window': { 'width': 0.9, 'height': 0.6 }})
+" command! FZFcfg call fzf#run({'source': 'rg --files --hidden --type rc --type conf --type prog', 'dir': '~', 'sink': 'e', 'window': { 'width': 0.9, 'height': 0.6 }})
 command! FZFin call fzf#run({'source': 'rg --files --hidden', 'sink': 'e', 'window': { 'width': 0.9, 'height': 0.6 }})
 command! FZFall call fzf#run({'source': 'rg --files --hidden --follow', 'dir': '~', 'sink': 'e', 'window': { 'width': 0.9, 'height': 0.6 }})
 
-nnoremap <silent> <leader>fc :FZFcfg<CR>
-nnoremap <silent> <leader>fi :FZFin<CR>
-nnoremap <silent> <leader>fa :FZFall<CR>
+" nnoremap <silent> <leader>qc :FZFcfg<CR>
+nnoremap <silent> <leader>qi :FZFin<CR>
+nnoremap <silent> <leader>qa :FZFall<CR>
 
 " Quickfix List
 " Searching the notes directory with <args> and ripgrep
 command! -nargs=1 Ngrep grep "<args>" -g "*.md" ~/git/effective-train
 nnoremap <leader>nn :Ngrep 
+nnoremap <leader>ni :e ~/git/effective-train/index.md<CR>
+command! -nargs=1 Grepin grep "<args>" | Vlist
+nnoremap <leader>fi :Grepin 
 " Making a vertical buffer on the right
 command! Vlist botright vertical copen | vertical resize 40
 " Quickfix buffer on whatever that was searched
@@ -57,6 +59,12 @@ inoremap <C-l> <c-g>u<Esc>[s1z=`]a<c-g>u
 " Correct capitalisation
 inoremap <C-k> <c-g>u<Esc>b~$a<c-g>u
 nnoremap ; :
+
+" Enable per-command history
+" - History files will be stored in the specified directory
+" - When set, CTRL-N and CTRL-P will be bound to 'next-history' and
+"   'previous-history' instead of 'down' and 'up'.
+let g:fzf_history_dir = '~/.local/share/fzf-history'
 
 " FZF
 let g:fzf_colors =
@@ -106,3 +114,7 @@ let g:pandoc#folding#fold_fenced_codeblocks = 1
 " let g:pandoc#spell#enabled = 0
 " Let Markdown Preview Work with Pandoc Files
 let g:mkdp_command_for_global = 1
+
+let g:UltiSnipsExpandTrigger="<A-w>"
+let g:UltiSnipsJumpForwardTrigger="<Tab>"
+let g:UltiSnipsJumpBackwardTrigger="<S-Tab>"

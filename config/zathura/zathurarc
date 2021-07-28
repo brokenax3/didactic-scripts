@@ -41,5 +41,5 @@ set recolor-darkcolor           "#c6c8d0" # fg
 set recolor                     false
 set recolor-keephue             true      # keep original color
 
-set font                        "Liberation Sans 12"
+set font                        "Iosevka SS02 12"
 set sandbox none
