@@ -1,0 +1,30 @@
+#!/bin/bash
+# Script to simplify display configuration when using Nvidia and Intel display drivers.
+# The output in xrandr is different for all three configurations.
+
+mode=$(optimus-manager --status | grep 'Current' | awk '{print $5}')
+driver=intel
+
+if [[ $mode == 'nvidia' ]]; then
+    xrandr --output eDP-1-1 --mode 1920x1080
+    xrandr --output DP-1-1 --primary --right-of eDP-1-1 --mode 1920x1080 --rate 74.97 --set "Broadcast RGB" "Full"
+else
+    if [[ $driver == 'modesetting' ]]; then
+        # Check if an external display is connected
+        if [[ $(xrandr | grep -w 'DP-1' | awk '{print $1}') == 'DP-1' ]]; then
+            xrandr --output eDP-1 --mode 1600x900
+            xrandr --output DP-1 --primary --right-of eDP-1 --mode 1920x1080 --rate 74.97 --set "Broadcast RGB" "Full"
+        else
+            xrandr --output eDP-1 --mode 1920x1080
+        fi
+    else
+        # Intel drivers and modesetting drivers give different output in xrandr
+        if [[ $(xrandr | grep -w 'DP1' | awk '{print $1}') == 'DP1' ]]; then
+            xrandr --output eDP1 --mode 1600x900
+            xrandr --output DP1 --primary --right-of eDP1 --mode 1920x1080 --rate 74.97 --set "Broadcast RGB" "Full"
+        else
+            xrandr --output eDP1 --mode 1920x1080
+        fi
+
+fi
+

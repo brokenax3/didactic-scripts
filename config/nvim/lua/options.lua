@@ -88,3 +88,17 @@ vim.o.backupdir = '/home/mark/.local/share/nvim/backup//'
 vim.o.directory = '/home/mark/.local/share/nvim/swap//'
 vim.o.undofile = true
 vim.o.backup = true
+------------------------------------------------------------------------
+--                             Clipboard                              --
+------------------------------------------------------------------------
+
+vim.api.nvim_set_option('clipboard', 'unnamedplus')
+
+------------------------------------------------------------------------
+--                             Blank Line                             --
+------------------------------------------------------------------------
+vim.g.indent_blankline_char = '┊'
+vim.g.indent_blankline_filetype_exclude = { 'help', 'packer' }
+vim.g.indent_blankline_buftype_exclude = { 'terminal', 'nofile' }
+vim.g.indent_blankline_char_highlight = 'LineNr'
+vim.g.indent_blankline_show_trailing_blankline_indent = false

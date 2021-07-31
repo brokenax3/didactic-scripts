@@ -14,13 +14,13 @@ local dpi = xresources.apply_dpi
 -- Create wibox with batwidget
 batbox = {
     bat_indicator,
-    fg = "#e2a478",
+    fg = "#d29c2c",
     widget = wibox.container.background,
 }
 
 volbox = {
     volume_indicator,
-    fg = "#a093c7",
+    fg = "#7aa270",
     widget = wibox.container.background,
 }
 
@@ -125,8 +125,11 @@ screen.connect_signal("request::desktop_decoration", function(s)
             -- awful.button({ }, 4, function() awful.client.focus.byidx(-1) end),
             -- awful.button({ }, 5, function() awful.client.focus.byidx( 1) end),
         },
-        style = {shape = gears.shape.rounded_rect},
-        layout = {spacing = dpi(8), layout = wibox.layout.flex.horizontal},
+        -- style = {shape = gears.shape.rounded_rect},
+        layout = { 
+            spacing = 1, 
+            layout = wibox.layout.flex.horizontal
+        },
         widget_template = {
         {
             {
@@ -135,7 +138,7 @@ screen.connect_signal("request::desktop_decoration", function(s)
                         id     = 'icon_role',
                         widget = wibox.widget.imagebox,
                     },
-                    margins = 2,
+                    margins = 1,
                     widget  = wibox.container.margin,
                 },
                 {
@@ -164,27 +167,50 @@ screen.connect_signal("request::desktop_decoration", function(s)
     )
 
     -- Create the wibox
-    s.mywibox = awful.wibar({ position = "top", screen = s })
+    s.mywibox = awful.wibar({ 
+        position = "top", 
+        screen = s,
+        spacing = 5,
+    })
 
     -- Add widgets to the wibox
     s.mywibox.widget = {
-        { -- Left widgets
-            layout = wibox.layout.fixed.horizontal,
-            s.mytaglist,
-            -- s.mypromptbox,
+        {
+            { 
+                -- Left widgets
+                layout = wibox.layout.fixed.horizontal,
+                s.mytaglist,
+                -- s.mypromptbox,
+            },
+            widget = wibox.container.margin,
+            right = 5,
         },
-        s.mytasklist, -- Middle widget
-        { -- Right widgets
-            spacing = 3,
-            layout = wibox.layout.fixed.horizontal,
-            batbox,
-            volbox,
-            wibox.widget.systray(),
-            s.mytextclock,
-            s.mylayoutbox,
-            -- s.menubutton,
+        -- Middle widget
+        s.mytasklist,
+        {
+            {
+                -- Right widgets
+                layout = wibox.layout.fixed.horizontal,
+                {
+                    batbox,
+                    widget = wibox.container.margin,
+                    left = 5,
+                    right = 5,
+                },
+                {
+                    volbox,
+                    widget = wibox.container.margin,
+                    left = 5,
+                    right = 5,
+                },
+                wibox.widget.systray(),
+                s.mytextclock,
+                s.mylayoutbox,
+                -- s.menubutton,
+            },
+            widget = wibox.container.margin,
+            left = 5,
         },
-        spacing = 10,
         layout = wibox.layout.align.horizontal,
     }
 end)

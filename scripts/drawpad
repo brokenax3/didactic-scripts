@@ -7,4 +7,4 @@ xsetwacom set "HID 256c:006d Pad pad" button 8 key =
 xsetwacom set "HID 256c:006d Pad pad" button 9 key Ctrl -
 xsetwacom set "HID 256c:006d Pad pad" button 10 key Ctrl Shift +
 
-xsetwacom set "HID 256c:006d stylus" MapToOutput HEAD-0
+xsetwacom set "HID 256c:006d stylus" MapToOutput DP-1

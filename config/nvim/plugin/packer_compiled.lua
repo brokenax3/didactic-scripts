@@ -69,9 +69,9 @@ end
 time([[try_loadstring definition]], false)
 time([[Defining packer_plugins]], true)
 _G.packer_plugins = {
-  ["fzf.vim"] = {
+  ["gruvbox-flat.nvim"] = {
     loaded = true,
-    path = "/home/mark/.local/share/nvim/site/pack/packer/start/fzf.vim"
+    path = "/home/mark/.local/share/nvim/site/pack/packer/start/gruvbox-flat.nvim"
   },
   ["lualine.nvim"] = {
     loaded = true,
@@ -93,13 +93,21 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/mark/.local/share/nvim/site/pack/packer/start/packer.nvim"
   },
+  ["plenary.nvim"] = {
+    loaded = true,
+    path = "/home/mark/.local/share/nvim/site/pack/packer/start/plenary.nvim"
+  },
+  ["popup.nvim"] = {
+    loaded = true,
+    path = "/home/mark/.local/share/nvim/site/pack/packer/start/popup.nvim"
+  },
   ["suda.vim"] = {
     loaded = true,
     path = "/home/mark/.local/share/nvim/site/pack/packer/start/suda.vim"
   },
-  ["tokyonight.nvim"] = {
+  ["telescope.nvim"] = {
     loaded = true,
-    path = "/home/mark/.local/share/nvim/site/pack/packer/start/tokyonight.nvim"
+    path = "/home/mark/.local/share/nvim/site/pack/packer/start/telescope.nvim"
   },
   ultisnips = {
     loaded = true,
@@ -116,6 +124,10 @@ _G.packer_plugins = {
   ["vim-easymotion"] = {
     loaded = true,
     path = "/home/mark/.local/share/nvim/site/pack/packer/start/vim-easymotion"
+  },
+  ["vim-gruvbox8"] = {
+    loaded = true,
+    path = "/home/mark/.local/share/nvim/site/pack/packer/start/vim-gruvbox8"
   },
   ["vim-lastplace"] = {
     loaded = true,
@@ -159,9 +171,9 @@ vim.cmd [[augroup packer_load_aucmds]]
 vim.cmd [[au!]]
   -- Filetype lazy-loads
 time([[Defining lazy-load filetype autocommands]], true)
-vim.cmd [[au FileType bib ++once lua require("packer.load")({'vim-pandoc', 'vim-pandoc-syntax', 'vimtex'}, { ft = "bib" }, _G.packer_plugins)]]
-vim.cmd [[au FileType tex ++once lua require("packer.load")({'vim-pandoc', 'vim-pandoc-syntax', 'vimtex'}, { ft = "tex" }, _G.packer_plugins)]]
 vim.cmd [[au FileType pandoc ++once lua require("packer.load")({'vim-pandoc', 'vim-pandoc-syntax', 'vimtex'}, { ft = "pandoc" }, _G.packer_plugins)]]
+vim.cmd [[au FileType tex ++once lua require("packer.load")({'vim-pandoc', 'vim-pandoc-syntax', 'vimtex'}, { ft = "tex" }, _G.packer_plugins)]]
+vim.cmd [[au FileType bib ++once lua require("packer.load")({'vim-pandoc', 'vim-pandoc-syntax', 'vimtex'}, { ft = "bib" }, _G.packer_plugins)]]
 time([[Defining lazy-load filetype autocommands]], false)
 vim.cmd("augroup END")
 vim.cmd [[augroup filetypedetect]]

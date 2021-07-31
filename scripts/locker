@@ -1,39 +1,41 @@
 #!/bin/sh
 
 # Define some colours.
-aqua="#92b7c0"
-black="#0f1116"
-blue="#89a0c3"
-green="#b6bd88"
-purple="#9e94c3"
-red="#d47d7b"
-white="#c6c8d0"
-yellow="#d9a67e"
+aqua="#8EC07C"
+black="#282828"
+blue="#83A598"
+green="#B8BB26"
+purple="#D3869B"
+red="#FB4934"
+white="#EBDDB2"
+yellow="#FABD2F"
 
 lock() {
     i3lock \
-    --insidevercolor=$black \
-    --ringvercolor=$yellow \
-    --insidewrongcolor=$black \
-    --ringwrongcolor=$red \
-    --insidecolor=$black \
-    --ringcolor=$black \
-    --linecolor=$black \
-    --separatorcolor=$blue \
-    --verifcolor=$yellow \
-    --wrongcolor=$red \
-    --timecolor=$white \
-    --datecolor=$white \
-    --layoutcolor=$aqua \
-    --keyhlcolor=$white \
-    --bshlcolor=$white \
+    --insidever-color=$black \
+    --ringver-color=$yellow \
+    --insidewrong-color=$black \
+    --ringwrong-color=$red \
+    --inside-color=$black \
+    --ring-color=$black \
+    --line-color=$black \
+    --separator-color=$blue \
+    --verif-color=$yellow \
+    --wrong-color=$red \
+    --time-color=$white \
+    --date-color=$white \
+    --layout-color=$aqua \
+    --keyhl-color=$white \
+    --bshl-color=$white \
     --blur 8 \
-    --veriftext="Checking ..." \
-    --wrongtext="Wrong." \
+    --verif-text="Checking ..." \
+    --wrong-text="Wrong." \
     --clock \
     --indicator \
-    --timestr="%H:%M:%S" \
-    --datestr="%A, %m %Y"
+    --time-str="%H:%M:%S" \
+    --date-str="%A, %m %Y" \
+    --time-font "Scientifica" \
+    --date-font "Scientifica"
 }
 
 lock

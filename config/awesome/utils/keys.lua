@@ -47,10 +47,10 @@ awful.keyboard.append_global_keybindings({
 
 -- {{{ Tags related keybindings
 awful.keyboard.append_global_keybindings({
-    awful.key({ modkey,           }, "Left",   awful.tag.viewprev,
-              {description = "view previous", group = "tag"}),
-    awful.key({ modkey,           }, "Right",  awful.tag.viewnext,
-              {description = "view next", group = "tag"}),
+    -- awful.key({ modkey,           }, "Left",   awful.tag.viewprev,
+    --           {description = "view previous", group = "tag"}),
+    -- awful.key({ modkey,           }, "Right",  awful.tag.viewnext,
+    --           {description = "view next", group = "tag"}),
     awful.key({ modkey,           }, "Escape", awful.tag.history.restore,
               {description = "go back", group = "tag"}),
 })
@@ -58,18 +58,14 @@ awful.keyboard.append_global_keybindings({
 
 -- {{{ Focus related keybindings
 awful.keyboard.append_global_keybindings({
-    awful.key({ modkey,           }, "j",
-        function ()
-            awful.client.focus.byidx( 1)
-        end,
-        {description = "focus next by index", group = "client"}
-    ),
-    awful.key({ modkey,           }, "k",
-        function ()
-            awful.client.focus.byidx(-1)
-        end,
-        {description = "focus previous by index", group = "client"}
-    ),
+    awful.key({ modkey,           }, "j", function () awful.client.focus.byidx( 1) end,
+        {description = "focus next by index", group = "client"}),
+    awful.key({ modkey,           }, "k", function () awful.client.focus.byidx(-1) end,
+        {description = "focus previous by index", group = "client"}),
+    awful.key({ modkey,           }, "Down", function () awful.client.focus.byidx( 1) end,
+        {description = "focus next by index", group = "client"}),
+    awful.key({ modkey,           }, "Up", function () awful.client.focus.byidx(-1) end,
+        {description = "focus previous by index", group = "client"}),
     awful.key({ modkey,           }, "Tab",
         function ()
             awful.client.focus.history.previous()
@@ -97,17 +93,28 @@ awful.keyboard.append_global_keybindings({
 -- {{{ Master Layout Manipulation
 -- Layout related keybindings
 awful.keyboard.append_global_keybindings({
+    -- Swapping Clients
     awful.key({ modkey, "Shift"   }, "j", function () awful.client.swap.byidx(  1)    end,
               {description = "swap with next client by index", group = "client"}),
     awful.key({ modkey, "Shift"   }, "k", function () awful.client.swap.byidx( -1)    end,
               {description = "swap with previous client by index", group = "client"}),
+    awful.key({ modkey, "Shift"   }, "Down", function () awful.client.swap.byidx(  1)    end,
+              {description = "swap with next client by index", group = "client"}),
+    awful.key({ modkey, "Shift"   }, "Up", function () awful.client.swap.byidx( -1)    end,
+              {description = "swap with previous client by index", group = "client"}),
+
+    -- Urgent Clients
     awful.key({ modkey,           }, "u", awful.client.urgent.jumpto,
               {description = "jump to urgent client", group = "client"}),
+
+    -- Resize Clients
     awful.key({ modkey,           }, "l",     function () awful.tag.incmwfact( 0.05)          end,
               {description = "increase master width factor", group = "layout"}),
     awful.key({ modkey,           }, "h",     function () awful.tag.incmwfact(-0.05)          end,
               {description = "decrease master width factor", group = "layout"}),
     awful.key({ modkey, "Shift"   }, "h",     function () awful.tag.incnmaster( 1, nil, true) end,
+
+    -- Master Clients 
               {description = "increase the number of master clients", group = "layout"}),
     awful.key({ modkey, "Shift"   }, "l",     function () awful.tag.incnmaster(-1, nil, true) end,
               {description = "decrease the number of master clients", group = "layout"}),
@@ -115,18 +122,15 @@ awful.keyboard.append_global_keybindings({
               {description = "increase the number of columns", group = "layout"}),
     awful.key({ modkey, "Control" }, "l",     function () awful.tag.incncol(-1, nil, true)    end,
               {description = "decrease the number of columns", group = "layout"}),
+
+    -- Layout Switching
     awful.key({ modkey,           }, "space", function () awful.layout.inc( 1)                end,
               {description = "select next", group = "layout"}),
     awful.key({ modkey, "Shift"   }, "space", function () awful.layout.inc(-1)                end,
               {description = "select previous", group = "layout"}),
-    -- awful.key({ modkey,           }, "q", function () bling.module.tabbed.put()              end,
-              -- {description = "pick client to add to tab", group = "layout"}),
-    -- awful.key({ modkey,           }, "e", function () bling.module.tabbed.pop()               end,
-              -- {description = "pop client from tab", group = "layout"}),
-    -- awful.key({ modkey,           }, "w", function () bling.module.tabbed.iter()              end,
-              -- {description = "iterate through clients in tab", group = "layout"}),
 })
 
+-- Tags
 awful.keyboard.append_global_keybindings({
     awful.key {
         modifiers   = { modkey },
@@ -210,6 +214,7 @@ client.connect_signal("request::default_mousebindings", function()
     })
 end)
 
+-- Client Behaviour
 client.connect_signal("request::default_keybindings", function()
     awful.keyboard.append_client_keybindings({
         awful.key({ modkey,           }, "f",
@@ -274,14 +279,12 @@ awful.keyboard.append_global_keybindings({
         naughty.notification({ title = "Volume: " ..  stdout, timeout = 1 })
         end)
     end),
-
     awful.key({ }, "XF86AudioRaiseVolume", function () 
         awful.spawn.easy_async("pamixer -i 5 && pamixer --get-volume-human", function(stdout, stderr, reason, exit_code)
         vicious.force(volbox)
         naughty.notification({ title = "Volume: " ..  stdout, timeout = 1 })
         end)
     end),
-
     awful.key({ }, "XF86AudioMute", function () 
         awful.spawn.easy_async("pamixer -t && pamixer --get-mute", function(stdout, stderr, reason, exit_code)
         vicious.force(volbox)
@@ -291,13 +294,14 @@ awful.keyboard.append_global_keybindings({
 
     -- Brightness Keys
     awful.key({ }, "XF86MonBrightnessDown", function () 
-        awful.spawn("xbacklight -dec 5")
-        naughty.notification({ title = "Brightness Down", timeout = 1 })
+        awful.spawn.easy_async_with_shell("brightnessctl -m -d intel_backlight s 5%- | awk -F ',' '{print $4}'", function(out)
+        naughty.notification({ title = "Brightness: " .. out, timeout = 1 })
+        end)
     end),
-
     awful.key({ }, "XF86MonBrightnessUp", function () 
-        awful.spawn("xbacklight -inc 5")
-        naughty.notification({ title = "Brightness Up", timeout = 1 })
+        awful.spawn.easy_async_with_shell("brightnessctl -m -d intel_backlight s +5% | awk -F ',' '{print $4}'", function(out)
+        naughty.notification({ title = "Brightness: " .. out, timeout = 1 })
+        end)
     end),
     
     -- Screenshot
@@ -328,8 +332,10 @@ awful.keyboard.append_global_keybindings({
               {description = "Google Chrome", group = "applications"}),
     awful.key({ modkey,           }, "F3", function () awful.spawn("thunar") end,
               {description = "Thunar", group = "applications"}),
-    awful.key({ modkey,           }, "F4", function () awful.spawn("neovide") end,
+    awful.key({ modkey,           }, "F4", function () awful.spawn("alacritty -e nvim") end,
               {description = "Neovim", group = "applications"}),
+    -- awful.key({ modkey,           }, "F4", function () awful.spawn("neovide") end,
+    --           {description = "Neovim", group = "applications"}),
     awful.key({ modkey,           }, "F5", function () awful.spawn("google-chrome-stable --incognito") end,
               {description = "Google Chrome (Incognito Mode)", group = "applications"}),
     awful.key({ modkey,           }, "F6", function () awful.spawn("spotify") end,

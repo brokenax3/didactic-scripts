@@ -1,0 +1,12 @@
+#!/bin/bash
+# Simple wrapper to adjust backlight brightness and send a notification
+
+if [[ $1 == 'up' ]];then
+    value=$(brightnessctl -m -d intel_backlight s +5% | awk -F',' '{print $4}')
+elif [[ $1 == 'down' ]];then
+    value=$(brightnessctl -m -d intel_backlight s 5%- | awk -F',' '{print $4}')
+fi
+
+notify-send -t 500 "Brightness : $value"
+
+

@@ -31,15 +31,11 @@ inotifywait -m --format "%f" -e moved_to "$path" | while read file;do
 
     # Remove the same file that exists in the tmp directory before processing the new one.
     if [[ $prevfile != $file ]];then
-
         if [[ $file == *.pdf ]];then
-            
             if [[ ! -d "$tmp" ]];then mkdir "$tmp";fi
-
             openzathura
         fi
     else
-
         # Remove the Old File and Open the Newly downloaded file
         rm "$tmp/$file"
         openzathura

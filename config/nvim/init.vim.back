@@ -1,0 +1,66 @@
+" autocmd VimEnter * :silent exec "!kill -s SIGWINCH $PPID"
+" set nocompatible
+" autocmd BufEnter * silent! lcd %:p:h
+
+" lua require('init')
+
+" set guifont=Iosevka\ SS02:h12
+" set clipboard=unnamedplus         
+" Make :grep use ripgrep
+" if executable('rg')
+"     set grepprg=rg\ --pretty\ --vimgrep
+" endif
+
+" Don't mark URL-like things as spelling errors
+" syn match UrlNoSpell '\w\+:\/\/[^[:space:]]\+' contains=@NoSpell
+
+" Don't count acronyms / abbreviations as spelling errors
+" (all upper-case letters, at least three characters)
+" Also will not count acronym with 's' at the end a spelling error
+" Also will not count numbers that are part of this
+" Recognizes the following as correct:
+" syn match AcronymNoSpell '\<\(\u\|\d\)\{3,}s\?\>' contains=@NoSpell
+
+" Mappings {{{1
+" Useful mappings
+" Map Y to act like D and C, i.e. to yank until EOL, rather than act as yy, which is the default
+" map Y y$
+" " Clear highlighting
+" nnoremap <C-L> :nohl<CR><C-L>
+" " List open buffers
+" nnoremap <silent> <leader>e :lua require'telescope.builtin'.buffers{}<CR>
+
+" Search for files including hidden files with ripgrep
+" command! FZFcfg call fzf#run({'source': 'rg --files --hidden --type rc --type conf --type prog', 'dir': '~', 'sink': 'e', 'window': { 'width': 0.9, 'height': 0.6 }})
+" command! FZFin call fzf#run({'source': 'rg --files --hidden', 'sink': 'e', 'window': { 'width': 0.9, 'height': 0.6 }})
+" command! FZFall call fzf#run({'source': 'rg --files --hidden --follow', 'dir': '~', 'sink': 'e', 'window': { 'width': 0.9, 'height': 0.6 }})
+
+" " nnoremap <silent> <leader>qc :FZFcfg<CR>
+" nnoremap <silent> <leader>qi :FZFin<CR>
+" nnoremap <silent> <leader>qa :FZFall<CR>
+
+" " Quickfix List
+" " Searching the notes directory with <args> and ripgrep
+" command! -nargs=1 Ngrep grep "<args>" -g "*.md" ~/git/effective-train
+" nnoremap <leader>nn :Ngrep 
+" nnoremap <leader>ni :e ~/git/effective-train/index.md<CR>
+" command! -nargs=1 Grepin grep "<args>" | Vlist
+" nnoremap <leader>fi :Grepin 
+" " Making a vertical buffer on the right
+" command! Vlist botright vertical copen | vertical resize 40
+" " Quickfix buffer on whatever that was searched
+" nnoremap <leader>nv :Vlist<CR>
+" " Prints the TODO list with ripgrep
+" nnoremap <leader>nt :Ngrep TODO<CR> :Vlist<CR>
+" nnoremap <leader>c :cclose<CR>
+
+" Spelling Correction
+" Correct previous spelling error
+" inoremap <C-l> <c-g>u<Esc>[s1z=`]a<c-g>u
+" " Correct capitalisation
+" inoremap <C-k> <c-g>u<Esc>b~$a<c-g>u
+" nnoremap ; :
+
+" let g:UltiSnipsExpandTrigger="<A-w>"
+" let g:UltiSnipsJumpForwardTrigger="<Tab>"
+" let g:UltiSnipsJumpBackwardTrigger="<S-Tab>"

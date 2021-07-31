@@ -8,6 +8,7 @@ return require('packer').startup(function()
     use {'nvim-treesitter/nvim-treesitter', run = ':TSUpdate'}  -- We recommend updating the parsers on update
 
     -- Themes
+    use 'eddyekofo94/gruvbox-flat.nvim'
     use 'lifepillar/vim-gruvbox8'
 
     -- Quality of life stuff
@@ -53,6 +54,18 @@ return require('packer').startup(function()
         ft = {'pandoc', 'tex', 'bib'} 
     } 
 
-    --FZF VIM
-    use 'junegunn/fzf.vim'
+    -- Telescope
+    use {
+        'nvim-telescope/telescope.nvim',
+        requires = {
+            {'nvim-lua/popup.nvim'}, 
+            {'nvim-lua/plenary.nvim'}
+        }
+    }
+
+    -- TODO Comments
+    -- use {
+    --     "folke/todo-comments.nvim",
+    --     requires = "nvim-lua/plenary.nvim",
+    -- }
 end)
