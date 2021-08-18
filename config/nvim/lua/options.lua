@@ -32,18 +32,33 @@ vim.o.laststatus = 2
 ------------------------------------------------------------------------
 --                             QOS Stuff                              --
 ------------------------------------------------------------------------
+vim.o.grepprg = 'rg --pretty --vimgrep --smart-case --follow'
 -- Enables syntax highlighing
--- vim.o.syntax = 'ON'                           
+-- vim.o.syntax = 'ON'                    
 -- Required to keep multiple buffers open multiple buffers
 vim.o.hidden = true                          
 vim.o.spell = false
 -- vim.o.spellfile = '/home/mark/.config/nvim/spell/en.utf-8.add'
--- vim.o.spelllang = 'en_au'
+vim.o.spelllang = 'en_au'
 -- set custom fold text to system
-vim.o.foldmethod = 'expr'
+vim.o.foldmethod = 'syntax'
 vim.o.foldexpr = 'nvim_treesitter#foldexpr()'
+
+--Incremental live completion
+vim.o.inccommand = 'nosplit'
 -- Completion
 vim.o.completeopt = "menuone,noselect"
+
+--Case insensitive searching UNLESS /C or capital in search
+vim.o.ignorecase = true
+vim.o.smartcase = true
+
+-- Make vim highlight fenced code in markdown
+-- vim.g.markdown_fenced_languages = {'python', 'bash', 'java'}
+vim.g.markdown_folding = 1
+vim.cmd[[au FileType markdown setlocal foldlevel=2]]
+
+vim.o.guifont = "Iosevka SS02:h11"
 ------------------------------------------------------------------------
 --                               Mouse                                --
 ------------------------------------------------------------------------
@@ -59,24 +74,24 @@ vim.o.expandtab = true
 -- Makes tabbing smarter will realize you have 2 vs 4
 vim.o.smarttab = true
 -- Makes indenting smart
-vim.o.smartindent = true
+-- vim.o.smartindent = true
 -- Good auto indent
 vim.o.autoindent = true
-vim.o.ignorecase = true
-vim.o.smartcase = true
+
+--Enable break indent
+vim.o.breakindent = true
 ------------------------------------------------------------------------
 --                            Line Number                             --
 ------------------------------------------------------------------------
 -- Relative Line Numbers
-vim.o.number = true
 vim.wo.number = true
-vim.o.relativenumber = true
 vim.wo.relativenumber = true
 ------------------------------------------------------------------------
 --                              Timeout                               --
 ------------------------------------------------------------------------
 -- Faster completion
-vim.o.updatetime = 300                      
+vim.o.updatetime = 300
+vim.wo.signcolumn = 'yes'
 -- Quickly time out on keycodes, but never time out on mappings
 vim.o.timeout = false
 vim.o.ttimeoutlen = 200
@@ -91,7 +106,6 @@ vim.o.backup = true
 ------------------------------------------------------------------------
 --                             Clipboard                              --
 ------------------------------------------------------------------------
-
 vim.api.nvim_set_option('clipboard', 'unnamedplus')
 
 ------------------------------------------------------------------------

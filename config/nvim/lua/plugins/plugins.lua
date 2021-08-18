@@ -8,7 +8,6 @@ return require('packer').startup(function()
     use {'nvim-treesitter/nvim-treesitter', run = ':TSUpdate'}  -- We recommend updating the parsers on update
 
     -- Themes
-    use 'eddyekofo94/gruvbox-flat.nvim'
     use 'lifepillar/vim-gruvbox8'
 
     -- Quality of life stuff
@@ -39,14 +38,11 @@ return require('packer').startup(function()
     use 'lambdalisue/suda.vim'
 
     -- Markdown in VIM
-    use {
-        'vim-pandoc/vim-pandoc',
-        ft = {'pandoc', 'tex', 'bib'} 
-    }
-    use {
-        'vim-pandoc/vim-pandoc-syntax',
-        ft = {'pandoc', 'tex', 'bib'} 
-    }
+    -- use 'SidOfc/mkdx'
+    use 'godlygeek/tabular'
+
+    use 'vim-pandoc/vim-pandoc'
+    use 'vim-pandoc/vim-pandoc-syntax'
 
     -- LaTeX in VIM
     use {
@@ -54,18 +50,19 @@ return require('packer').startup(function()
         ft = {'pandoc', 'tex', 'bib'} 
     } 
 
-    -- Telescope
-    use {
-        'nvim-telescope/telescope.nvim',
-        requires = {
-            {'nvim-lua/popup.nvim'}, 
-            {'nvim-lua/plenary.nvim'}
-        }
-    }
-
-    -- TODO Comments
+    -- FZF with VIM
+    use 'junegunn/fzf.vim'
+    
+    -- Indentation guides
+    use 'lukas-reineke/indent-blankline.nvim'
+    
+    -- Neovim Tree
     -- use {
-    --     "folke/todo-comments.nvim",
-    --     requires = "nvim-lua/plenary.nvim",
+    --     'kyazdani42/nvim-tree.lua',
+    --     requires = 'kyazdani42/nvim-web-devicons'
     -- }
+
+    -- use 'alok/notational-fzf-vim'
+    use 'lervag/wiki.vim'
+
 end)

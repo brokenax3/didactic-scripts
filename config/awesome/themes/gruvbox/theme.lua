@@ -12,8 +12,8 @@ theme.wallpaper = themes_path .. "/gruvbox/awesome-gruvbox.png"
 -- }}}
 
 -- {{{ Styles
-theme.font      = "Scientifica 12"
-theme.notification_font = "Scientifica 14"
+theme.font      = "Iosevka SS02 10"
+theme.notification_font = "Iosevka SS02 12"
 theme.tasklist_plain_task_name = true
 -- theme.notification_icon_size = 50
 -- theme.notification_max_width = 200

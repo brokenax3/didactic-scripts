@@ -69,13 +69,21 @@ end
 time([[try_loadstring definition]], false)
 time([[Defining packer_plugins]], true)
 _G.packer_plugins = {
-  ["gruvbox-flat.nvim"] = {
+  ["fzf.vim"] = {
     loaded = true,
-    path = "/home/mark/.local/share/nvim/site/pack/packer/start/gruvbox-flat.nvim"
+    path = "/home/mark/.local/share/nvim/site/pack/packer/start/fzf.vim"
+  },
+  ["indent-blankline.nvim"] = {
+    loaded = true,
+    path = "/home/mark/.local/share/nvim/site/pack/packer/start/indent-blankline.nvim"
   },
   ["lualine.nvim"] = {
     loaded = true,
     path = "/home/mark/.local/share/nvim/site/pack/packer/start/lualine.nvim"
+  },
+  mkdx = {
+    loaded = true,
+    path = "/home/mark/.local/share/nvim/site/pack/packer/start/mkdx"
   },
   ["nvim-compe"] = {
     loaded = true,
@@ -85,29 +93,29 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/mark/.local/share/nvim/site/pack/packer/start/nvim-lspconfig"
   },
+  ["nvim-tree.lua"] = {
+    loaded = true,
+    path = "/home/mark/.local/share/nvim/site/pack/packer/start/nvim-tree.lua"
+  },
   ["nvim-treesitter"] = {
     loaded = true,
     path = "/home/mark/.local/share/nvim/site/pack/packer/start/nvim-treesitter"
+  },
+  ["nvim-web-devicons"] = {
+    loaded = true,
+    path = "/home/mark/.local/share/nvim/site/pack/packer/start/nvim-web-devicons"
   },
   ["packer.nvim"] = {
     loaded = true,
     path = "/home/mark/.local/share/nvim/site/pack/packer/start/packer.nvim"
   },
-  ["plenary.nvim"] = {
-    loaded = true,
-    path = "/home/mark/.local/share/nvim/site/pack/packer/start/plenary.nvim"
-  },
-  ["popup.nvim"] = {
-    loaded = true,
-    path = "/home/mark/.local/share/nvim/site/pack/packer/start/popup.nvim"
-  },
   ["suda.vim"] = {
     loaded = true,
     path = "/home/mark/.local/share/nvim/site/pack/packer/start/suda.vim"
   },
-  ["telescope.nvim"] = {
+  tabular = {
     loaded = true,
-    path = "/home/mark/.local/share/nvim/site/pack/packer/start/telescope.nvim"
+    path = "/home/mark/.local/share/nvim/site/pack/packer/start/tabular"
   },
   ultisnips = {
     loaded = true,
@@ -133,16 +141,6 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/mark/.local/share/nvim/site/pack/packer/start/vim-lastplace"
   },
-  ["vim-pandoc"] = {
-    loaded = false,
-    needs_bufread = true,
-    path = "/home/mark/.local/share/nvim/site/pack/packer/opt/vim-pandoc"
-  },
-  ["vim-pandoc-syntax"] = {
-    loaded = false,
-    needs_bufread = false,
-    path = "/home/mark/.local/share/nvim/site/pack/packer/opt/vim-pandoc-syntax"
-  },
   ["vim-repeat"] = {
     loaded = true,
     path = "/home/mark/.local/share/nvim/site/pack/packer/start/vim-repeat"
@@ -163,6 +161,10 @@ _G.packer_plugins = {
     loaded = false,
     needs_bufread = true,
     path = "/home/mark/.local/share/nvim/site/pack/packer/opt/vimtex"
+  },
+  ["wiki.vim"] = {
+    loaded = true,
+    path = "/home/mark/.local/share/nvim/site/pack/packer/start/wiki.vim"
   }
 }
 
@@ -171,15 +173,12 @@ vim.cmd [[augroup packer_load_aucmds]]
 vim.cmd [[au!]]
   -- Filetype lazy-loads
 time([[Defining lazy-load filetype autocommands]], true)
-vim.cmd [[au FileType pandoc ++once lua require("packer.load")({'vim-pandoc', 'vim-pandoc-syntax', 'vimtex'}, { ft = "pandoc" }, _G.packer_plugins)]]
-vim.cmd [[au FileType tex ++once lua require("packer.load")({'vim-pandoc', 'vim-pandoc-syntax', 'vimtex'}, { ft = "tex" }, _G.packer_plugins)]]
-vim.cmd [[au FileType bib ++once lua require("packer.load")({'vim-pandoc', 'vim-pandoc-syntax', 'vimtex'}, { ft = "bib" }, _G.packer_plugins)]]
+vim.cmd [[au FileType bib ++once lua require("packer.load")({'vimtex'}, { ft = "bib" }, _G.packer_plugins)]]
+vim.cmd [[au FileType pandoc ++once lua require("packer.load")({'vimtex'}, { ft = "pandoc" }, _G.packer_plugins)]]
+vim.cmd [[au FileType tex ++once lua require("packer.load")({'vimtex'}, { ft = "tex" }, _G.packer_plugins)]]
 time([[Defining lazy-load filetype autocommands]], false)
 vim.cmd("augroup END")
 vim.cmd [[augroup filetypedetect]]
-time([[Sourcing ftdetect script at: /home/mark/.local/share/nvim/site/pack/packer/opt/vim-pandoc/ftdetect/pandoc.vim]], true)
-vim.cmd [[source /home/mark/.local/share/nvim/site/pack/packer/opt/vim-pandoc/ftdetect/pandoc.vim]]
-time([[Sourcing ftdetect script at: /home/mark/.local/share/nvim/site/pack/packer/opt/vim-pandoc/ftdetect/pandoc.vim]], false)
 time([[Sourcing ftdetect script at: /home/mark/.local/share/nvim/site/pack/packer/opt/vimtex/ftdetect/tex.vim]], true)
 vim.cmd [[source /home/mark/.local/share/nvim/site/pack/packer/opt/vimtex/ftdetect/tex.vim]]
 time([[Sourcing ftdetect script at: /home/mark/.local/share/nvim/site/pack/packer/opt/vimtex/ftdetect/tex.vim]], false)

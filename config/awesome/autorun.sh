@@ -17,4 +17,4 @@ run picom -b
 run pdfsort
 run lxsession
 run xfce4-clipman
-brightnessctl set 25%
+brightnessctl set 15%

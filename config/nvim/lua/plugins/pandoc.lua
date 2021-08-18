@@ -1,7 +1,7 @@
 vim.g['pandoc#syntax#conceal#blacklist'] = { 'atx' }
 vim.g['pandoc#syntax#conceal#urls'] = true
 vim.g['pandoc#syntax#style#emphases'] = true
-vim.g['pandoc#folding#level'] = 1
+vim.g['pandoc#folding#level'] = 2
 vim.g['pandoc#folding#fastfolds'] = true
 vim.g['pandoc#folding#mode'] = 'syntax'
 vim.g['pandoc#folding#use_foldtext'] = false

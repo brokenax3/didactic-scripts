@@ -3,16 +3,19 @@
 ------------------------------------------------------------------------
 H = require('helpers')
 require('options')
-require('keybindings')
+require('plugins.snippets')
 require('plugins.plugins')
 require('plugins.completion')
 require('plugins.lsp')
-require('plugins.telescope')
+require('plugins.fzf')
 require('plugins.treesitter')
 require('plugins.vimtex')
+-- require('plugins.markdowndx')
 require('plugins.pandoc')
-require('plugins.snippets')
--- require('plugins.todo')
+require('plugins.tree')
+require('keybindings')
+-- require('plugins.notational')
+require('plugins.wiki')
 
 vim.api.nvim_command([[autocmd BufEnter * silent! lcd %:p:h]])
 vim.api.nvim_command([[autocmd VimEnter * :silent exec "!kill -s SIGWINCH $PPID"]])
@@ -28,8 +31,9 @@ vim.api.nvim_exec(
 )
 
 -- Neovim Theme
-vim.o.termguicolors = true
--- vim.g.gruvbox_flat_style = "dark"
+-- vim.o.termguicolors = true
+-- vim.g.gruvbox_italic = true
+
 vim.cmd[[set background=dark]]
 vim.cmd[[colorscheme gruvbox8]]
 

@@ -78,6 +78,10 @@ awful.keyboard.append_global_keybindings({
               {description = "focus the next screen", group = "screen"}),
     awful.key({ modkey, "Control" }, "k", function () awful.screen.focus_relative(-1) end,
               {description = "focus the previous screen", group = "screen"}),
+    awful.key({ modkey, "Control" }, "Up", function () awful.screen.focus_relative( 1) end,
+              {description = "focus the next screen", group = "screen"}),
+    awful.key({ modkey, "Control" }, "Down", function () awful.screen.focus_relative(-1) end,
+              {description = "focus the previous screen", group = "screen"}),
     awful.key({ modkey, "Control" }, "n",
               function ()
                   local c = awful.client.restore()
@@ -328,8 +332,8 @@ awful.keyboard.append_global_keybindings({
 
 -- {{{ Custom Shortcuts
 awful.keyboard.append_global_keybindings({
-    awful.key({ modkey,           }, "F2", function () awful.spawn("google-chrome-stable") end,
-              {description = "Google Chrome", group = "applications"}),
+    awful.key({ modkey,           }, "F2", function () awful.spawn("qutebrowser") end,
+              {description = "Qutebrowser", group = "applications"}),
     awful.key({ modkey,           }, "F3", function () awful.spawn("thunar") end,
               {description = "Thunar", group = "applications"}),
     awful.key({ modkey,           }, "F4", function () awful.spawn("alacritty -e nvim") end,
